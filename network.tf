@@ -1,6 +1,3 @@
-## Copyright (c) 2021, Oracle and/or its affiliates.
-## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
-
 # Create VCN
 
 resource "oci_core_virtual_network" "vcn" {
@@ -74,7 +71,5 @@ resource "oci_core_subnet" "subnet" {
   route_table_id    = oci_core_route_table.rt.id
   security_list_ids = [oci_core_security_list.sl.id]
 
-  provisioner "local-exec" {
-    command = "sleep 5"
-  }
+
 }
