@@ -45,8 +45,8 @@ jobs:
       run: terraform init
     - name: source env
       run: source env-vars
-    - name: Terraform validate
-      run: terraform validate
+   # - name: Terraform validate
+    #  run: terraform validate
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
