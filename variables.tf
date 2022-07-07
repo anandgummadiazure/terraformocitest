@@ -1,13 +1,44 @@
 ## Copyright (c) 2021, Oracle and/or its affiliates.
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 
-variable "tenancy_ocid" {}
-variable "region" {}
-variable "ssh_public_key" {
-  default = ""
+variable "tenancy_ocid" {
 }
+
+variable "region" {
+}
+
+#variable "user_ocid" {}
+
+#variable "fingerprint" {}
+
+#variable "private_key_path" {}
+
 variable "compartment_ocid" {
 }
+
+variable "AD" {
+  description = "Availability domain number"
+  type        = list(string)
+  default     = ["1"]
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key for instances"
+}
+/*
+variable "ssh_private_key" {
+  description = "SSH private key for instances"
+}
+*/
+variable "bastion_ssh_public_key" {
+  description = "SSH public key for bastion instance"
+  default     = ""
+}
+/*
+variable "bastion_ssh_private_key" {
+  description = "SSH private key for bastion_instance"
+}
+*/
 
 variable "availablity_domain_name" {
   default = ""
