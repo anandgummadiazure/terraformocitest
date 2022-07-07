@@ -7,15 +7,17 @@ variable "tenancy_ocid" {
 variable "region" {
 }
 
-#variable "user_ocid" {}
+variable "user_ocid" {}
 
-#variable "fingerprint" {}
+variable "fingerprint" {}
 
-#variable "private_key_path" {}
+variable "private_key_path" {}
 
 variable "compartment_ocid" {
 }
-
+variable "availablity_domain_name" {
+  default = ""
+}
 variable "AD" {
   description = "Availability domain number"
   type        = list(string)
@@ -40,9 +42,7 @@ variable "bastion_ssh_private_key" {
 }
 */
 
-variable "availablity_domain_name" {
-  default = ""
-}
+
 variable "VCN-CIDR" {
   default = "10.0.0.0/16"
 }
