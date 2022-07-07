@@ -2,16 +2,16 @@
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
 ### Authentication details
 
-export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaauxkckdk52eqaadtgyxc4bxoctkz6a3kxnk4nmbz7wgfia7ch5hja"
-export TF_VAR_fingerprint="ca:c7:e7:43:56:2e:86:9f:4b:69:be:68:2c:88:13:f3"
-export TF_VAR_private_key="oci_api_key.pem"
-export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaaseigzffga7po7fmholp5rzznf6c4sn3ui4g4o2xpjnv6mkhr4xgq"
+export TF_VAR_tenancy_ocid=ocid1.tenancy.oc1..aaaaaaaauxkckdk52eqaadtgyxc4bxoctkz6a3kxnk4nmbz7wgfia7ch5hja
+export TF_VAR_fingerprint=ca:c7:e7:43:56:2e:86:9f:4b:69:be:68:2c:88:13:f3
+export TF_VAR_private_key=oci_api_key.pem
+export TF_VAR_user_ocid=ocid1.user.oc1..aaaaaaaaseigzffga7po7fmholp5rzznf6c4sn3ui4g4o2xpjnv6mkhr4xgq
 #
 #### Region
-export TF_VAR_region="us-ashburn-1"
+export TF_VAR_region=us-ashburn-1
 #
 #### Compartment
-export TF_VAR_compartment_ocid= "ocid1.compartment.oc1..aaaaaaaawbpdbz7faxizwidlgguycd7fedbumoe77q3shmwbwqqw2tsppcoa"
+export TF_VAR_compartment_ocid=ocid1.compartment.oc1..aaaaaaaawbpdbz7faxizwidlgguycd7fedbumoe77q3shmwbwqqw2tsppcoa
 #
 #### Public key used on the bastion host
 #export TF_VAR_ssh_public_key=$(cat <path to bastion public key>)
