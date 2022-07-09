@@ -10,7 +10,7 @@ env:
   #comartment_ocid: ${{ secrets.COMPARTMENT_OCID }}
   user_ocid: ${{ secrets.USER_OCID }}
   fingerprint: ${{ secrets.FINGERPRINT }}
-  private_key_file: ${{secrets.PRIVATE_KEY_FILE}}
+  private_key_file: ${{secrets.PRIVATE_KEY}}
   
 permissions:
   contents: read
@@ -41,7 +41,7 @@ jobs:
         echo "region=${{secrets.REGION}}" >> ~/.oci/config
         echo "tenancy=${{secrets.TENANCY_OCID}}" >> ~/.oci/config
         echo "key_file=~/.oci/key.pem" >> ~/.oci/config
-        echo "${{secrets.PRIVATE_API_KEY}}" >> ~/.oci/key.pem
+        echo "${{secrets.PRIVATE_KEY}}" >> ~/.oci/key.pem
         cat ~/.oci/config
         echo " ~/.oci/key.pem file"
         cat ~/.oci/key.pem
