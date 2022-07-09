@@ -16,5 +16,5 @@ compartment_ocid = "ocid1.compartment.oc1..aaaaaaaawbpdbz7faxizwidlgguycd7fedbum
 #User 
 user_ocid = "ocid1.user.oc1..aaaaaaaaseigzffga7po7fmholp5rzznf6c4sn3ui4g4o2xpjnv6mkhr4xgq"
 #Fingerprint
-fingerprint = "ca:c7:e7:43:56:2e:86:9f:4b:69:be:68:2c:88:13:f3"
+fingerprint = "d2:b8:7c:0e:9b:68:ea:3a:02:97:70:e4:51:89:f0:df"
   
