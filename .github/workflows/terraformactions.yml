@@ -7,7 +7,7 @@ on:
   pull_request:
 env:
   tenancy_ocid: ${{ secrets.TENANCY_OCID }}
-  #comartment_ocid: ${{ secrets.COMPARTMENT_OCID }}
+  comartment_ocid: ${{ secrets.COMPARTMENT_OCID }}
   user_ocid: ${{ secrets.USER_OCID }}
   fingerprint: ${{ secrets.FINGERPRINT }}
   private_key_file: ${{secrets.PRIVATE_KEY}}
@@ -38,6 +38,7 @@ jobs:
         echo "[DEFAULT]" >> ~/.oci/config
         echo "user=${{secrets.USER_OCID}}" >> ~/.oci/config
         echo "fingerprint=${{secrets.FINGERPRINT}}" >> ~/.oci/config
+        echo "compartment_ocid=${{secrets.COMPARTMENT_OCID}}" >> ~/.oci/config
         echo "region=${{secrets.REGION}}" >> ~/.oci/config
         echo "tenancy=${{secrets.TENANCY_OCID}}" >> ~/.oci/config
         echo "key_file=~/.oci/key.pem" >> ~/.oci/config
