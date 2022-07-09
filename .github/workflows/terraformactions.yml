@@ -6,12 +6,11 @@ on:
     - "main"
   pull_request:
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  OCI_TENANCY_OCID: ${{ secrets.TENANCY_OCID }}
-  OCI_COMPARTMENT_OCID: ${{ secrets.COMPARTMENT_OCID }}
-  OCI_USER_OCID: ${{ secrets.USER_OCID }}
-  OCI_PUBKEY_FINGERPRINT: ${{ secrets.FINGERPRINT }}
-  OCI_PRIVKEY_FILE: ${{secrets.PRIVATE_KEY_FILE}}
+  tenancy_ocid: ${{ secrets.TENANCY_OCID }}
+  #comartment_ocid: ${{ secrets.COMPARTMENT_OCID }}
+  user_ocid: ${{ secrets.USER_OCID }}
+  fingerprint: ${{ secrets.FINGERPRINT }}
+  private_key_file: ${{secrets.PRIVATE_KEY_FILE}}
   
 permissions:
   contents: read
@@ -20,7 +19,7 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    environment: production
+    environment: dev
     
       
 
@@ -33,8 +32,37 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-    
-      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: 'Write Config & Key Files'
+      run: |
+        mkdir ~/.oci
+        echo "[DEFAULT]" >> ~/.oci/config
+        echo "user=${{secrets.USER_OCID}}" >> ~/.oci/config
+        echo "fingerprint=${{secrets.FINGERPRINT}}" >> ~/.oci/config
+        echo "region=${{secrets.REGION}}" >> ~/.oci/config
+        echo "tenancy=${{secrets.TENANCY_OCID}}" >> ~/.oci/config
+        echo "key_file=~/.oci/key.pem" >> ~/.oci/config
+        echo "${{secrets.PRIVATE_API_KEY}}" >> ~/.oci/key.pem
+        cat ~/.oci/config
+        echo " ~/.oci/key.pem file"
+        cat ~/.oci/key.pem
+        ls -lta ~/.oci
+        ls -lta ~
+        pwd
+    - name: 'Install OCI CLI'
+      run: |
+        curl -L -O https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
+        chmod +x install.sh
+        ./install.sh --accept-all-defaults
+        echo "/home/runner/bin" >> $GITHUB_PATH
+        #exec -l $SHELL
+        echo " Fixing file permissions and testing oci"
+        /home/runner/bin/oci setup repair-file-permissions --file ~/.oci/config
+        /home/runner/bin/oci setup repair-file-permissions --file ~/.oci/key.pem
+        echo " oci os ns get"
+        /home/runner/bin/oci os ns get
+
+   
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -43,10 +71,14 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-    #- name: source env
-    #  run: source env-vars
-   # - name: Terraform validate
-    #  run: terraform validate
+
+   
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan
+
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
